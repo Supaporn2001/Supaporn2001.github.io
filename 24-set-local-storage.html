@@ -126,6 +126,7 @@
                           </div>
                           <input class="btn btn-danger w-25" type="Submit" value="Submit" onclick="setdata()">
                           <input class="btn btn-danger w-25" type="reset" value="Reset" onclick="resetdata()">
+                          <input class="btn btn-warning text-light" type="button" value="Delete Storage" onclick="deleteStorage()">
                     </p>
                 </div>
             </div>
@@ -136,7 +137,7 @@
     <footer class="fixed-bottom">
  
             <p class="text-center my-0 p-2 text-light"></p>
-            <p class="text-md-center my-0 p-2  text-light">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad commodi quos tenetur voluptas excepturi accusantium. Mollitia qui quis minus molestias velit sapiente cum odio sint voluptate, nostrum fugit nesciunt voluptates.</p>
+            <p class="text-md-center my-0 p-2  text-light">Lorem</p>
             
 
     </footer>
@@ -150,34 +151,41 @@
 
         <!-- จาวาสคริป -->
         <script>
-            // let local_employee = localStorage.getItem('employee')
+             let local_employee = localStorage.getItem('employee')
              let employee = []
              let empid
              let empname
-             //let local_empid = []
-             //let local_empname = []
              function setdata() {
-             //    local_employee = localStorage.getItem('employee')
-             //    employee = eval(local_employee)
+                 employee = eval(local_employee)
                  empid = document.getElementById('empid').value
                  empname = document.getElementById('empname').value
-                 console.log(empid + " " + empname)
-                 employee.push({"empid" : empid, "empname" : empname})
-                 // console.log(employee)
-                 //employee = JSON.stringify({"empid" : empid, "empname" : empname})
+                 if (empid != '' && empname != '') {
+                    if (employee == null) {
+                     employee = [{"empid" : empid, "empname" : empname}]
+                    } else {
+                     employee.push({"empid" : empid, "empname" : empname})
+                 }
                  localStorage.setItem('employee',JSON.stringify(employee))
-                // local_empid.push(empid)
-                // local_empname.push(empname)
-                // console.log(local_empid)                          
-                // localStorage.setItem('empid', local_empid)
-                // localStorage.setItem('empname', local_empname)
+                 local_employee = localStorage.getItem('employee')
                  document.getElementById('empid').value = ''
                  document.getElementById('empname').value = ''
+                     alert('ป้อนข้อมูลเรียบร้อยแล้ว')
+                 } else {
+                     alert("จะป้อนไหม")
+                 }
+
              }
      
              function resetdata() {
                  document.getElementById('empid').value = ''
                  document.getElementById('empname').value = ''
+             }
+             function deleteStorage() {
+                 if(confirm('ต้องการลบใช่หรือไม่')) {
+                 localStorage.removeItem('employee')
+                 employee = []
+                 local_employee = null
+                 }
              }
          </script>
 </body>
